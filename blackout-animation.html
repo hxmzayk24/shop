@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackOut Shisha-Shop</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .smoke-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.4;
+            background: linear-gradient(135deg, #111 0%, #000 100%);
+        }
+        
+        .red-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            z-index: 1;
+            animation: redPulse 8s infinite ease-in-out;
+        }
+        
+        @keyframes redPulse {
+            0%, 100% { opacity: 0.1; transform: scale(1); }
+            50% { opacity: 0.2; transform: scale(1.1); }
+        }
+        
+        .smoke {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0;
+            animation: smokeFloat 20s infinite ease-in-out;
+        }
+        
+        .smoke1 { 
+            background: radial-gradient(ellipse at center, rgba(100, 100, 100, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+            top: 60%;
+            animation-delay: 0s;
+        }
+        
+        .smoke2 {
+            background: radial-gradient(ellipse at center, rgba(100, 100, 100, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+            top: 40%;
+            animation-delay: 3s;
+        }
+        
+        .smoke3 {
+            background: radial-gradient(ellipse at center, rgba(100, 100, 100, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+            top: 20%;
+            animation-delay: 6s;
+        }
+        
+        .logo-container {
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform: translateY(-10%);
+        }
+        
+        .logo-text {
+            font-size: 7vw;
+            font-weight: 800;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 0.2em;
+            transform: scaleX(1.2);
+        }
+        
+        .logo-text-black {
+            color: #ff0000;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+            animation: pulsateRed 4s infinite ease-in-out;
+        }
+        
+        .logo-text-out {
+            color: white;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+            animation: pulsate 4s infinite ease-in-out;
+        }
+        
+        .tagline {
+            font-size: 2vw;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            color: #ccc;
+            animation: taglineFade 8s infinite ease-in-out;
+        }
+        
+        .accent-line {
+            width: 30vw;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+            margin: 2vh 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .accent-line::after {
+            content: '';
+            position: absolute;
+            width: 30%;
+            height: 100%;
+            background: #ff0000;
+            top: 0;
+            animation: slideLine 4s infinite;
+            box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.7);
+        }
+        
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.3);
+            animation: particleFloat linear infinite;
+        }
+        
+        @keyframes pulsate {
+            0%, 100% { opacity: 1; transform: scaleX(1.2) scale(1); }
+            50% { opacity: 0.9; transform: scaleX(1.2) scale(1.03); }
+        }
+        
+        @keyframes pulsateRed {
+            0%, 100% { opacity: 1; transform: scaleX(1.2) scale(1); text-shadow: 0 0 15px rgba(255, 0, 0, 0.7); }
+            50% { opacity: 0.9; transform: scaleX(1.2) scale(1.03); text-shadow: 0 0 25px rgba(255, 0, 0, 0.9); }
+        }
+        
+        @keyframes taglineFade {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 0.3; }
+        }
+        
+        @keyframes slideLine {
+            0% { left: -30%; }
+            100% { left: 100%; }
+        }
+        
+        @keyframes smokeFloat {
+            0%, 100% { opacity: 0; transform: translateY(10%) scale(1); }
+            50% { opacity: 0.6; transform: translateY(0) scale(1.5); }
+        }
+        
+        @keyframes particleFloat {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        .footer {
+            position: absolute;
+            bottom: 5vh;
+            width: 100%;
+            text-align: center;
+            font-size: 1.8vw;
+            letter-spacing: 0.2em;
+            z-index: 3;
+            color: #aaa;
+        }
+        
+        .social-icons {
+            margin-top: 1vh;
+            display: flex;
+            justify-content: center;
+            gap: 2vw;
+        }
+        
+        .social-icon {
+            width: 2vw;
+            height: 2vw;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: iconPulse 2s infinite ease-in-out;
+        }
+        
+        .social-icon:nth-child(2) {
+            animation-delay: 0.6s;
+        }
+        
+        .social-icon:nth-child(3) {
+            animation-delay: 1.2s;
+        }
+        
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); background-color: white; }
+            50% { transform: scale(1.1); background-color: #ff0000; }
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="smoke-background"></div>
+        <div class="red-glow"></div>
+        <div class="smoke smoke1"></div>
+        <div class="smoke smoke2"></div>
+        <div class="smoke smoke3"></div>
+        
+        <div id="particles" class="particles"></div>
+        
+        <div class="logo-container">
+            <div class="logo-text"><span class="logo-text-black">BLACK</span><span class="logo-text-out">OUT</span></div>
+            <div class="accent-line"></div>
+            <div class="tagline">SHISHA-SHOP</div>
+        </div>
+        
+        <div class="footer">
+            <div>KREFELD</div>
+            <div class="social-icons">
+                <div class="social-icon">
+                    <svg width="60%" height="60%" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2">
+                        <rect x="2" y="2" width="20" height="20" rx="5"></rect>
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <circle cx="18" cy="6" r="1.5"></circle>
+                    </svg>
+                </div>
+                <div class="social-icon">
+                    <svg width="60%" height="60%" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                </div>
+                <div class="social-icon">
+                    <svg width="60%" height="60%" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2">
+                        <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                        <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const numberOfParticles = 30;
+            
+            for (let i = 0; i < numberOfParticles; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size between 2-6px
+                const size = Math.random() * 4 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Some particles are red for added effect
+                if (Math.random() > 0.7) {
+                    particle.style.backgroundColor = "rgba(255, 0, 0, 0.6)";
+                    particle.style.boxShadow = "0 0 10px 2px rgba(255, 0, 0, 0.4)";
+                }
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Random duration between 15-40s
+                const duration = Math.random() * 25 + 15;
+                particle.style.animationDuration = `${duration}s`;
+                
+                // Random movement path
+                const xMove = Math.random() * 30 - 15; // -15 to 15
+                const yMove = -100 - Math.random() * 50; // -100 to -150
+                particle.style.transform = `translate(${xMove}vw, ${yMove}vh)`;
+                
+                // Add keyframe animation
+                particle.style.animation = `particleFloat ${duration}s linear infinite`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+        });
+    </script>
+</body>
+</html>
